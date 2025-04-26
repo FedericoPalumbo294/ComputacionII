@@ -1,0 +1,44 @@
+# Apuntes: getopt y argparse en Python
+
+## ¿Qué son los argumentos de línea de comandos?
+Permiten que el usuario pase datos al script mientras lo ejecuta, sin modificar el código.
+
+## ¿Qué es getopt?
+- Librería básica para manejar argumentos en scripts pequeños.
+- Uso: getopt.getopt(lista_argumentos, opciones_cortas)
+- Opciones cortas como '-n', '-i', '-o', etc.
+
+## ¿Qué es argparse?
+- Librería avanzada para scripts más grandes y profesionales.
+- Permite:
+    - Argumentos obligatorios y opcionales.
+    - Mensajes de ayuda automáticos.
+    - Manejo de tipos de datos (str, int, float, etc).
+- Uso básico:
+    1. Crear un parser: ArgumentParser()
+    2. Agregar argumentos: add_argument()
+    3. Parsear: parse_args()
+
+## Ejemplo básico con argparse:
+```python
+import argparse
+
+parser = argparse.ArgumentParser(description="Copia contenido de un archivo a otro")
+parser.add_argument('-i', '--input', type=str, required=True, help='Archivo de entrada')
+parser.add_argument('-o', '--output', type=str, required=True, help='Archivo de salida')
+
+args = parser.parse_args()
+
+print(f"Entrada: {args.input}")
+print(f"Salida: {args.output}")
+```
+
+## Error handling
+Con try-except podés controlar errores como archivos inexistentes.
+
+## Diferencias principales:
+- getopt: más manual y básico.
+- argparse: más robusto y con ayuda automática al usuario.
+
+## Recursos para profundizar:
+- https://docs.python.org/es/3/library/argparse.html

@@ -1,0 +1,21 @@
+# Resumen Pedagógico - 26/04/2025
+
+Hoy trabajé sobre el tema de manejo de argumentos de línea de comandos en Python usando getopt y argparse.
+
+- **Inicio**: Activé conocimientos previos. Sabía un poco sobre terminales y comandos, pero no mucho sobre scripts.
+- **Aprendizaje**:
+    - Entendí la diferencia entre getopt (más simple) y argparse (más completo).
+    - Practiqué cómo pedir argumentos (-i y -o) y cómo manejar errores.
+    - Aprendí la importancia de validar los datos que ingresa el usuario.
+- **Dificultades**:
+    - Al principio me costó entender cómo se estructuraba el código con getopt.
+    - Con ayuda y explicaciones más simples, logré entenderlo y avanzar.
+- **Logros**:
+    - Escribí un script funcional que copia archivos usando argparse.
+    - Logré ejecutarlo correctamente desde la terminal.
+- **Reflexión**:
+    - Sentí que mejoré mi comprensión sobre cómo interactúan los scripts de Python con la terminal.
+    - Me sentí muy motivado cuando vi que el script funcionaba.
+    - Me doy cuenta que entender bien estas bases me va a servir mucho en programación profesional.
+
+¡Gran avance hoy! 🚀

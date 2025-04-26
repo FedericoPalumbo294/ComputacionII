@@ -1,0 +1,18 @@
+
+Resumen pedagógico de la clase - Computación II (Control de versiones y Entrada/Salida en Unix)
+
+1. Estructura de la conversación:
+   La conversación fue progresiva y ordenada, avanzando tema por tema en el orden propuesto inicialmente. Se respetaron los pasos solicitados (Git, estructura del repositorio, flujo de trabajo, conexión remota y E/S en Unix), y en cada sección se realizaron pausas para asegurarnos de que los conceptos quedaran claros antes de seguir. Las pequeñas preguntas extra fueron respondidas brevemente como acordamos, para no perder el foco principal.
+
+2. Claridad y profundidad:
+   Se profundizó en conceptos como el modelo de control de versiones distribuido versus centralizado, el flujo de estados de archivos en Git, y los fundamentos de entrada/salida en Unix. Cada concepto fue seguido de ejercicios prácticos y preguntas de comprensión que fueron respondidas correctamente, mostrando una consolidación progresiva del conocimiento.
+
+3. Patrones de aprendizaje:
+   Se observaron preguntas de verificación en casi todos los temas, como por ejemplo la función del comando `touch`, el significado de `/dev/null`, o la diferencia entre `>` y `>>`. Esto muestra una actitud muy activa de aprendizaje, buscando siempre confirmar el entendimiento. No hubo dudas repetitivas, indicando una buena comprensión a medida que avanzábamos.
+
+4. Aplicación y reflexión:
+   Se relacionaron constantemente los conceptos con ejemplos concretos, como la importancia de Git para trabajar en equipo o la utilidad de redirigir salidas de comandos en automatizaciones. Hubo una reflexión consciente sobre por qué ciertas prácticas (como usar un README bien estructurado) mejoran el trabajo en equipo y la calidad del proyecto.
+
+5. Observaciones adicionales:
+   El perfil de aprendizaje mostrado es muy activo, orientado a aplicar rápidamente lo aprendido y confirmar el entendimiento práctico. Es recomendable seguir este enfoque en futuras clases, manteniendo la estructura de teoría breve + práctica + puesta en común, ya que se adapta muy bien a tu estilo de aprendizaje.
+
