@@ -1,0 +1,62 @@
+Resumen Pedagógico: Aprendizaje de Pipes y Procesos en Python
+
+---
+
+1. Fundamentos Aprendidos
+
+- Procesos: Entendimos qué es un proceso en sistemas operativos.
+- Pipes: Aprendimos que los pipes son canales de comunicación unidireccionales entre procesos.
+- fork(): Vimos cómo duplicar procesos (crear hijos) en Python.
+- exec(): Entendimos que reemplaza la imagen de un proceso con un nuevo programa.
+- Procesos zombis: Procesos muertos que esperan ser recolectados por su padre.
+- Procesos huérfanos: Procesos cuyo padre murió y fueron adoptados por "init" o "systemd".
+
+---
+
+2. Ejercicios Realizados
+
+- Creación de procesos padre-hijo.
+- Creación de dos hijos en paralelo.
+- Pipeline de procesos:
+  - Proceso 1 envía números.
+  - Proceso 2 recibe y procesa.
+  - Proceso 3 recibe resultados y suma.
+- Comunicación entre procesos usando pipes anónimos.
+- Aplicación de pipes en ejercicios controlados.
+
+---
+
+3. Conceptos Profundizados
+
+- Cierre correcto de extremos de pipes para evitar deadlocks.
+- Bloqueo de lectura: Cuando un proceso lee de un pipe vacío.
+- Flush de datos: Importancia de "flush()" para enviar datos inmediatamente.
+- Identificación de procesos: Uso de ps -ef y ps -o pid,ppid,cmd -p PID.
+- PPID: Entendimos por qué a veces un proceso huérfano no es adoptado directamente por PID 1.
+
+---
+
+4. Estrategias de Aprendizaje Observadas
+
+- Preferencia por códigos simples y funcionales.
+- Necesidad de ejemplos prácticos para afianzar conceptos.
+- Búsqueda constante de comprensión profunda, no superficial.
+- Reflexión crítica sobre los resultados de ejecución.
+- Uso de la terminal real (no >>>) para ejecución de programas.
+
+---
+
+5. Recomendaciones para el Futuro
+
+- Continuar practicando con pipes múltiples y comunicación bidireccional.
+- Realizar experimentos con errores comunes (no cerrar un extremo) para entender fallos.
+- Seguir documentando el código con comentarios explicativos.
+- Crear pequeños proyectos de simulación de servidores o procesamiento en cadena.
+
+---
+
+Conclusión
+
+El alumno demostró un aprendizaje sólido, ordenado y progresivo, dominando tanto los fundamentos teóricos como la implementación práctica de procesos y pipes en Python sobre sistemas Linux.
+
+✅ Nivel alcanzado: Intermedio-Avanzado en manejo de procesos y pipes.
