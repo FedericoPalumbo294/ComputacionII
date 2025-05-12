@@ -1,0 +1,52 @@
+| Señal     | Nº | ¿Se puede manejar con handler? | Acción por defecto     | Descripción breve                              |
+| --------- | -- | ------------------------------ | ---------------------- | ---------------------------------------------- |
+| `SIGHUP`  | 1  | ✅ Sí                           | Terminar               | Terminal cerrado o sesión caída                |
+| `SIGINT`  | 2  | ✅ Sí                           | Terminar               | Interrupción desde teclado (Ctrl + C)          |
+| `SIGQUIT` | 3  | ✅ Sí                           | Terminar + core dump   | Fin desde teclado con volcado de memoria       |
+| `SIGILL`  | 4  | ✅ Sí                           | Terminar + core dump   | Instrucción ilegal                             |
+| `SIGTRAP` | 5  | ✅ Sí                           | Terminar + core dump   | Usado por debuggers                            |
+| `SIGABRT` | 6  | ✅ Sí                           | Terminar + core dump   | Abortado (como `abort()`)                      |
+| `SIGBUS`  | 7  | ✅ Sí                           | Terminar + core dump   | Error de memoria física                        |
+| `SIGFPE`  | 8  | ✅ Sí                           | Terminar + core dump   | Error matemático (división por 0, etc.)        |
+| `SIGKILL` | 9  | ❌ NO                           | Terminar **inmediato** | Matar al proceso sí o sí (no se puede manejar) |
+| `SIGUSR1` | 10 | ✅ Sí                           | Terminar               | Señal definida por el usuario                  |
+| `SIGSEGV` | 11 | ✅ Sí                           | Terminar + core dump   | Segmentación de memoria (invalid access)       |
+| `SIGUSR2` | 12 | ✅ Sí                           | Terminar               | Señal definida por el usuario                  |
+| `SIGPIPE` | 13 | ✅ Sí                           | Terminar               | Escritura en un pipe sin lector                |
+| `SIGALRM` | 14 | ✅ Sí                           | Terminar               | Alarma por timeout (`alarm()`)                 |
+| `SIGTERM` | 15 | ✅ Sí                           | Terminar               | Terminación estándar (kill <PID>)              |
+| `SIGCHLD` | 17 | ✅ Sí                           | Ignorar o manejar      | Hijo terminó o cambió de estado                |
+| `SIGCONT` | 18 | ❌ Sí\*                         | Reanudar               | Continuar proceso pausado                      |
+| `SIGSTOP` | 19 | ❌ NO                           | Pausar **inmediato**   | Pausar al proceso sí o sí                      |
+| `SIGTSTP` | 20 | ✅ Sí                           | Pausar (Ctrl + Z)      | Pausa desde teclado                            |
+| `SIGTTIN` | 21 | ✅ Sí                           | Pausar                 | Proceso en background pide entrada             |
+| `SIGTTOU` | 22 | ✅ Sí                           | Pausar                 | Proceso en background escribe en terminal      |
+
+kill <PID> = SIGTERM = 15
+kill -10 <PID> es una señal que no hace nada por defecto, esta buena para activar algun evento si se lo espesifico al handler 
+
+| Señal     | Número | Nombre en C / Python | Función principal                                                       |
+| --------- | ------ | -------------------- | ----------------------------------------------------------------------- |
+| `SIGINT`  | 2      | `signal.SIGINT`      | Interrumpe el proceso (como al presionar Ctrl+C en la terminal).        |
+| `SIGTERM` | 15     | `signal.SIGTERM`     | Solicita la terminación del proceso de forma limpia (puede atraparse).  |
+SIGINT se usa cuando el usuario quiere cancelarlo.
+SIGTERM se usa cuando otro proceso o vos mismo desde la terminal con kill.
+
+| `SIGKILL` | 9      | No atrapable         | Termina el proceso de inmediato (no puede ser ignorada ni atrapada).    |
+| `SIGSTOP` | 19     | No atrapable         | Pausa (detiene) un proceso; puede ser reanudado con `SIGCONT`.          |
+| `SIGHUP`  | 1      | `signal.SIGHUP`      | Indica que se cerró la terminal o que debe recargarse la configuración. |
+
+❓ ¿Qué diferencia hay entre SIGKILL y SIGTERM a nivel de control del proceso?
+
+| Señal     | Número | ¿Manejable? | ¿Finaliza el proceso? | Uso típico                           |
+| --------- | ------ | ----------- | --------------------- | ------------------------------------ |
+| `SIGTERM` | 15     | Sí          | Sí (si no se ignora)  | Finalizar un proceso de forma segura |
+| `SIGKILL` | 9      | No          | Sí (inmediato)        | Terminar un proceso colgado          |
+
+¿Qué hace el handler?
+
+El handler es como una orden que vos le das al proceso para que sepa cómo reaccionar ante una señal 
+en vez de hacer lo que el sistema le manda por defecto, por eso decimos si es manejable o no la señal por el handler
+porque hay señales que no se pueden manejar(como SIGKILL o SIGSTOP)
+
+signal permite trabajar con señales del sistema operativo desde python
