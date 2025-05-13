@@ -1,0 +1,78 @@
+🧠 Resumen de Multiprocessing en Python
+🟢 a) Fundamentos de procesos y programación concurrente
+🔑 Conceptos:
+Proceso: Unidad de ejecución con su propia memoria.
+
+Hilo (thread): Unidad más liviana, comparte memoria con su proceso.
+
+GIL (Global Interpreter Lock): En CPython, evita ejecución paralela de hilos → por eso usamos procesos para paralelismo real.
+
+🟡 b) Creación y gestión de procesos
+🧩 Comandos y funciones clave:
+Comando	¿Qué hace?
+from multiprocessing import Process	Importa la clase Process
+p = Process(target=func, args=(...))	Crea un proceso para ejecutar func()
+p.start()	Inicia el proceso
+p.join()	Espera a que el proceso termine
+p.is_alive()	Verifica si el proceso aún se está ejecutando
+p.pid	Devuelve el PID del proceso
+
+🟠 c) Comunicación entre procesos
+📬 Pipes:
+Comando	¿Qué hace?
+conn1, conn2 = Pipe()	Crea un canal de comunicación bidireccional
+conn1.send(valor)	Envía datos
+conn2.recv()	Recibe datos
+
+📦 Queues:
+Comando	¿Qué hace?
+cola = Queue()	Crea una cola segura para múltiples procesos
+cola.put(valor)	Envía datos a la cola
+cola.get()	Recibe datos de la cola
+
+🔎 Diferencias:
+Característica	Pipe	Queue
+Dirección	Bidireccional	Unidireccional (FIFO)
+Nº de procesos	Solo entre 2	Varios procesos
+Seguridad	No sincronizado	Sincronizado automáticamente
+
+🔴 d) Sincronización básica con Lock
+🧱 Comandos clave:
+Comando	¿Qué hace?
+lock = Lock()	Crea un candado para sincronizar
+lock.acquire()	Entra a la sección crítica
+lock.release()	Sale de la sección crítica
+with lock:	Contexto seguro para secciones críticas
+
+🧠 ¿Por qué?
+Evita condiciones de carrera cuando varios procesos acceden/modifican un mismo recurso.
+
+🔵 e) Pool de procesos
+🌊 Comandos y métodos:
+Comando / Método	¿Qué hace?
+from multiprocessing import Pool	Importa Pool
+with Pool(n) as p:	Crea un grupo de n procesos
+p.map(func, lista)	Ejecuta func sobre cada ítem (bloqueante)
+p.apply(func, args=(...))	Llama a func (bloqueante)
+p.apply_async(func, args=(...))	Llama a func (no bloqueante)
+p.map_async(func, lista)	Ejecuta como map pero no bloqueante
+
+🟣 f) Memoria compartida básica (Value y Array)
+🧬 Comandos clave:
+Comando	¿Qué hace?
+from multiprocessing import Value, Array	Importa estructuras compartidas
+valor = Value('i', 0)	Variable entera compartida
+lista = Array('i', [1,2,3])	Lista de enteros compartida
+valor.value	Accede al valor actual
+lista[i]	Accede o modifica un índice
+
+✅ Recomendaciones finales
+Siempre usá join() para evitar procesos huérfanos.
+
+Preferí Queue para múltiples procesos y Pipe solo entre dos.
+
+Usá Lock si accedés a variables compartidas para evitar errores.
+
+Pool es ideal para procesamiento paralelo de listas de tareas.
+
+Value y Array te permiten compartir datos entre procesos, pero siempre con cuidado.
