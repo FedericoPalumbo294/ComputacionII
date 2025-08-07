@@ -1,51 +1,50 @@
-import multiprocessing
 import time
-from datetime import datetime
+import datetime
 import random
-from analizador import proceso_analizador
+from multiprocessing import Process, Pipe, Queue
+from analizadores import analizar
+from verificador import verificador
 
-def generar_muestra():
+def generar_dato():
     return {
-        "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        "timestamp": datetime.datetime.now().isoformat(timespec='seconds'),
         "frecuencia": random.randint(60, 180),
         "presion": [random.randint(110, 180), random.randint(70, 110)],
         "oxigeno": random.randint(90, 100)
     }
 
 if __name__ == "__main__":
-    # Crear pipes para los 3 analizadores
-    parent_a, child_a = multiprocessing.Pipe()
-    parent_b, child_b = multiprocessing.Pipe()
-    parent_c, child_c = multiprocessing.Pipe()
+    # Pipes para enviar datos a analizadores
+    parent_conn_A, child_conn_A = Pipe()
+    parent_conn_B, child_conn_B = Pipe()
+    parent_conn_C, child_conn_C = Pipe()
 
-    # Crear procesos analistas
-    proc_a = multiprocessing.Process(target=proceso_analizador, args=(child_a, "frecuencia"))
-    proc_b = multiprocessing.Process(target=proceso_analizador, args=(child_b, "presion"))
-    proc_c = multiprocessing.Process(target=proceso_analizador, args=(child_c, "oxigeno"))
+    # Queues para recibir resultados
+    queue_A = Queue()
+    queue_B = Queue()
+    queue_C = Queue()
 
-    # Iniciar procesos
-    proc_a.start()
-    proc_b.start()
-    proc_c.start()
+    # Lanzar procesos analizadores
+    pA = Process(target=analizar, args=("frecuencia", child_conn_A, queue_A))
+    pB = Process(target=analizar, args=("presion", child_conn_B, queue_B))
+    pC = Process(target=analizar, args=("oxigeno", child_conn_C, queue_C))
+    pA.start()
+    pB.start()
+    pC.start()
+
+    # Lanzar proceso verificador
+    pV = Process(target=verificador, args=(queue_A, queue_B, queue_C))
+    pV.start()
 
     for _ in range(60):
-        muestra = generar_muestra()
-        print(f"[Principal] Generada muestra: {muestra}")
-
-        parent_a.send(muestra)
-        parent_b.send(muestra)
-        parent_c.send(muestra)
-
+        dato = generar_dato()
+        parent_conn_A.send(dato)
+        parent_conn_B.send(dato)
+        parent_conn_C.send(dato)
         time.sleep(1)
 
-    # Enviar señal de cierre
-    parent_a.send("FIN")
-    parent_b.send("FIN")
-    parent_c.send("FIN")
-
-    # Esperar a que terminen
-    proc_a.join()
-    proc_b.join()
-    proc_c.join()
-
-    print("[Principal] Finalizado.")
+    # Esperar finalización
+    pA.join()
+    pB.join()
+    pC.join()
+    pV.join()
