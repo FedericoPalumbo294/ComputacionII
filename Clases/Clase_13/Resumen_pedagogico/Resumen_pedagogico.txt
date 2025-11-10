@@ -1,0 +1,22 @@
+1. Estructura de la conversación
+
+El desarrollo avanzó de la teoría (modelos OSI/TCP-IP) hacia la práctica con sockets y Docker, consolidando una visión completa de cómo fluyen los datos desde el código hasta la infraestructura.
+
+2. Claridad y profundidad
+
+Cada sprint permitió conectar conceptos abstractos con pruebas concretas.
+Se logró entender cómo un mensaje HTTP o una conexión TCP representan directamente lo aprendido sobre puertos, capas y protocolos.
+
+3. Patrones de aprendizaje
+
+Fede aplicó aprendizaje experimental: ejecutó, observó respuestas y verificó conceptos.
+Las principales aclaraciones se dieron sobre diferencias entre herramientas (Telnet vs Netcat vs Sockets) y sobre el ciclo de vida de las conexiones.
+
+4. Aplicación y reflexión
+
+Relacionó el código con los fundamentos vistos en clase y con experiencias previas de IPC y Docker, entendiendo que todo comparte la misma lógica de intercambio estructurado de datos.
+
+5. Observaciones adicionales
+
+El trabajo mantiene un orden excelente y refuerza la documentación sistemática de cada sprint.
+Para seguir avanzando, se recomienda experimentar con Netcat y HTTP manual 2.0 (HTTP/3 – QUIC), consolidando la comprensión del ecosistema actual de redes.

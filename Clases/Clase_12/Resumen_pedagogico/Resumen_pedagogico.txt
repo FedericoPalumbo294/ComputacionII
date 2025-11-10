@@ -1,0 +1,28 @@
+1. Estructura de la conversación
+
+El intercambio se desarrolló de forma progresiva: comenzamos validando la instalación de Docker con el contenedor hello-world, seguimos con la exploración interactiva de Ubuntu dentro de un contenedor, luego aprendimos a listar, detener y eliminar contenedores, continuamos con la gestión de imágenes y finalmente ejecutamos un servidor web Nginx accesible desde el navegador.
+La secuencia fue de lo simple a lo complejo, manteniendo una lógica clara y práctica.
+
+2. Claridad y profundidad
+
+La clase alcanzó buena profundidad conceptual: se entendió la diferencia entre imagen y contenedor, el uso de los parámetros -d, --rm, -p, y la relación entre puertos del host y del contenedor.
+También se profundizó en la interacción entre el cliente Docker, el daemon y el registro Docker Hub, consolidando los fundamentos del ecosistema.
+Cada sprint incorporó explicaciones previas y comprobaciones reales de funcionamiento, favoreciendo una comprensión aplicada.
+
+3. Patrones de aprendizaje
+
+Se observó un aprendizaje guiado por la práctica: cada comando ejecutado reforzó el concepto teórico correspondiente.
+Las dudas principales se centraron en permisos de usuario, funcionamiento del daemon y cómo detener contenedores en segundo plano, lo cual permitió afianzar la comprensión del ciclo de vida de un contenedor.
+Se mantuvo una actitud proactiva al buscar interpretar los mensajes de la terminal y verificar el resultado de cada ejecución.
+
+4. Aplicación y reflexión
+
+Los ejercicios se vincularon con conocimientos previos sobre sistemas operativos y procesos concurrentes.
+Fede experimentó directamente la creación, ejecución y eliminación de procesos aislados, entendiendo Docker como una extensión práctica de esos conceptos.
+El uso de Nginx permitió visualizar cómo un contenedor puede exponer servicios reales y relacionarlo con entornos de despliegue profesional.
+
+5. Observaciones adicionales
+
+El trabajo mostró orden, constancia y atención a la correcta documentación de cada sprint.
+La organización en carpetas (Apuntes, Ejercicios, Resumen_pedagógico) refuerza buenas prácticas de versionado y facilita la evaluación.
+Para futuras clases, se sugiere continuar con ejercicios que involucren Docker Compose o volúmenes persistentes, extendiendo el aprendizaje hacia aplicaciones multicontenedor.

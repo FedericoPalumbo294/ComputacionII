@@ -1,0 +1,16 @@
+Las redes permiten la comunicación global fragmentando datos en paquetes que viajan entre dispositivos.
+Su evolución va desde ARPANET hasta Internet, pasando por la adopción del modelo TCP/IP, que se impuso sobre el teórico modelo OSI.
+Las redes modernas se entienden mejor gracias a la abstracción por capas, donde cada nivel (físico, enlace, red, transporte y aplicación) cumple una función independiente.
+
+Puertos y protocolos: los puertos identifican procesos dentro de un mismo equipo (0–65535). Protocolos como HTTP y SMTP usan TCP, mientras que DNS y streaming pueden usar UDP.
+
+Herramientas clásicas: Telnet y Netcat sirven para probar conexiones y entender cómo viaja el texto dentro de un protocolo.
+
+Sockets: son la interfaz de programación que une software y red. Python los implementa con el módulo sockets, permitiendo crear clientes y servidores.
+
+IPC (Inter-Process Communication): aplica los mismos principios para procesos locales (tuberías, colas, sockets UNIX).
+
+Docker: aprovecha estas ideas — namespaces, puertos, sockets — para aislar redes virtuales entre contenedores.
+
+Mirada futura: protocolos HTTP/3 y QUIC optimizan latencia; los service mesh gestionan redes de microservicios.
+Pese a la evolución, los fundamentos clásicos (capas, multiplexación y estándares abiertos) siguen siendo la base de todo.

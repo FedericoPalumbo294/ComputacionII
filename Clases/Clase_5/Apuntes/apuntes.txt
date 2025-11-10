@@ -1,0 +1,126 @@
+CLASE 5 – COMUNICACIÓN ENTRE PROCESOS EN PYTHON
+Tema central: Multiprocessing, Pipe y Queue
+
+───────────────────────────────────────────────
+1. CONCEPTO DE PROCESOS
+───────────────────────────────────────────────
+- Un proceso es una instancia independiente de un programa que se ejecuta.
+- Cada proceso tiene su propio espacio de memoria.
+- En Python, se crean procesos con el módulo multiprocessing.
+
+Ejemplo:
+from multiprocessing import Process
+
+def tarea():
+    print("Hola desde otro proceso")
+
+p = Process(target=tarea)
+p.start()
+p.join()
+
+───────────────────────────────────────────────
+2. COMUNICACIÓN ENTRE PROCESOS
+───────────────────────────────────────────────
+Los procesos no comparten memoria, por lo tanto, necesitan mecanismos para comunicarse.
+Python ofrece dos formas básicas:
+  a) Pipe (tubería)
+  b) Queue (cola)
+
+───────────────────────────────────────────────
+3. PIPE (multiprocessing.Pipe)
+───────────────────────────────────────────────
+- Es una conexión punto a punto entre dos extremos.
+- Se usa cuando solo dos procesos necesitan comunicarse.
+- Se crea con: conn1, conn2 = Pipe()
+- Enviar datos: conn1.send(valor)
+- Recibir datos: conn2.recv()
+
+Ejemplo:
+from multiprocessing import Pipe
+conn1, conn2 = Pipe()
+conn1.send("Hola")
+print(conn2.recv())
+
+Ventajas:
+- Sencillo para comunicación 1 a 1.
+Desventajas:
+- No sirve fácilmente para múltiples productores o consumidores.
+
+───────────────────────────────────────────────
+4. QUEUE (multiprocessing.Queue)
+───────────────────────────────────────────────
+- Es una cola segura para múltiples procesos.
+- Permite comunicación 1 a N, N a 1 o N a N.
+- Internamente usa bloqueos para evitar conflictos de acceso.
+
+Funciones principales:
+  queue.put(valor)   → Enviar dato
+  queue.get()        → Recibir dato (espera hasta que haya algo)
+  queue.empty()      → Saber si está vacía (no siempre confiable)
+
+Ejemplo simple:
+from multiprocessing import Process, Queue
+
+def productor(q):
+    for i in range(5):
+        q.put(i)
+    q.put("FIN")
+
+def consumidor(q):
+    while True:
+        dato = q.get()
+        if dato == "FIN":
+            break
+        print("Recibí:", dato)
+
+q = Queue()
+p1 = Process(target=productor, args=(q,))
+p2 = Process(target=consumidor, args=(q,))
+p1.start(); p2.start()
+p1.join(); p2.join()
+
+───────────────────────────────────────────────
+5. PATRÓN PRODUCTOR–CONSUMIDOR
+───────────────────────────────────────────────
+- Es una estructura muy usada para procesar datos en paralelo.
+- Un productor genera datos y los envía a una cola.
+- Un consumidor los recibe y los procesa.
+
+Señal de finalización:
+- Se usa un valor especial (sentinel), por ejemplo "FIN", para avisar a los consumidores que no hay más datos.
+- Si hay varios consumidores, es necesario reenviar la señal “FIN” o poner varias señales, una por consumidor.
+
+───────────────────────────────────────────────
+6. DIFERENCIAS ENTRE PIPE Y QUEUE
+───────────────────────────────────────────────
+| Característica | Pipe | Queue |
+|----------------|-------|--------|
+| Comunicación   | 1 a 1 | 1 a N o N a N |
+| Seguridad      | No segura para múltiples procesos | Segura (usa bloqueos internos) |
+| Facilidad      | Simple | Más flexible |
+| Uso típico     | Envío directo entre 2 procesos | Múltiples productores/consumidores |
+
+───────────────────────────────────────────────
+7. PROBLEMAS COMUNES
+───────────────────────────────────────────────
+- Nombrar un archivo “queue.py” genera conflicto con el módulo estándar.
+- Olvidar usar “if __name__ == '__main__':” puede causar errores en Windows.
+- No cerrar procesos con join() puede dejar procesos “zombie”.
+- No enviar la señal “FIN” causa bloqueos (el consumidor espera datos eternamente).
+
+───────────────────────────────────────────────
+8. BUENAS PRÁCTICAS
+───────────────────────────────────────────────
+✔ Usar siempre “if __name__ == '__main__':”  
+✔ Nombrar los scripts con nombres claros: cola.py, productor_consumidor.py, etc.  
+✔ Comentar el código explicando el flujo productor → cola → consumidor.  
+✔ Usar variables con nombres descriptivos (queue, conn1, conn2, productor, consumidor).  
+✔ Imprimir mensajes que indiquen qué hace cada proceso para visualizar el flujo.  
+✔ Controlar el final del programa usando una señal o contador.
+
+───────────────────────────────────────────────
+9. CONCLUSIÓN
+───────────────────────────────────────────────
+- La clase 5 introduce el paso de teoría de comunicación de procesos a práctica con multiprocessing.
+- Queue es el método más útil para proyectos más grandes y escalables.
+- Comprender el patrón productor-consumidor ayuda a entender cómo funcionan muchos sistemas concurrentes reales.

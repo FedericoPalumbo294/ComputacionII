@@ -1,0 +1,71 @@
+RESUMEN – CLASE 12: INTRODUCCIÓN A DOCKER
+
+1) ¿Qué es Docker?
+- Plataforma para empaquetar y ejecutar apps en CONTENEDORES (procesos aislados con su FS, red y dependencias).
+- Objetivo: que la app funcione igual en dev/testing/producción (portabilidad y consistencia).
+
+2) Virtualización vs Contenedorización
+- VMs: cada VM trae SO completo → pesadas, lentas en iniciar.
+- Contenedores: comparten kernel del host → livianos, inician en segundos.
+- Beneficios: menos overhead, mayor densidad, despliegues rápidos y reproducibles.
+
+3) Componentes Clave
+- Docker Engine (dockerd), Docker CLI, Docker API.
+- Registry (Docker Hub u otros) para almacenar/compartir imágenes.
+
+4) Imágenes, Contenedores y Dockerfile
+- Imagen: plantilla inmutable (capas).
+- Contenedor: instancia en ejecución de una imagen.
+- Dockerfile: receta para construir imágenes.
+  Ejemplo mínimo:
+    FROM python:3.12
+    WORKDIR /app
+    COPY . .
+    RUN pip install -r requirements.txt
+    CMD ["python", "main.py"]
+
+5) Comandos Básicos
+- docker pull ubuntu              # bajar imagen
+- docker images                   # listar imágenes
+- docker run -d --name web -p 8080:80 nginx
+- docker ps / docker ps -a        # contenedores (activos / todos)
+- docker stop web && docker rm web
+- docker rmi imagen:tag           # borrar imagen
+
+6) Persistencia: Volúmenes y Bind Mounts
+- Los contenedores son efímeros; para datos persistentes:
+  - Volumen: docker volume create datos
+            docker run -v datos:/app/data imagen
+  - Bind mount: docker run -v $(pwd):/app imagen
+
+7) Redes en Docker
+- bridge (por defecto), host, none y redes personalizadas.
+- Beneficios de redes custom: DNS por nombre de contenedor, mejor aislamiento.
+
+8) Docker Compose (multi-contenedor)
+- Definición declarativa en docker-compose.yml
+  Ejemplo:
+    version: "3.8"
+    services:
+      web:
+        image: nginx
+        ports: ["80:80"]
+      db:
+        image: postgres
+        environment:
+          POSTGRES_PASSWORD: secret
+- Comandos: docker-compose up -d / down / logs / ps / exec
+
+9) Seguridad y Buenas Prácticas
+- Ejecutar como usuario NO root (USER en Dockerfile).
+- Usar imágenes oficiales/actualizadas.
+- Escanear con Trivy; limitar recursos (--memory, --cpus).
+- No guardar secretos en la imagen; usar variables o Docker Secrets.
+
+10) Observabilidad y Debug
+- docker logs <ctr> / docker logs -f <ctr>
+- docker exec -it <ctr> bash (o sh)
+- docker stats / docker inspect <ctr>
+- Herramientas: Portainer, cAdvisor, Prometheus, Grafana.
+
+----------------------------------------------------
