@@ -1,2 +1,6 @@
 venv/
 .venv/
+# Imágenes generadas por el TP2
+screenshot.png
+thumbnail.png
+*.png
